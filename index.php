@@ -55,7 +55,6 @@
                         <td class="px-6 py-4 whitespace-nowrap text-right font-medium" style="font-size: 13px">
                             <form action="generatepdf.php" method="GET">
                                 <input type="hidden" name="id" value="<?php echo $row['id']?>">
-                                <input type="hidden" name="name">
                                 <button type="submit" name="generate" class="text-indigo-600 hover:text-indigo-900 w-full transition-all">Generate</button>
                             </form>
                         </td>

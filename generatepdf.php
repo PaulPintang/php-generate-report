@@ -7,10 +7,10 @@ $db = mysqli_connect('localhost', 'root', '', 'report');
 
 if (isset($_GET['generate'])) {
     $id = $_GET['id'];
-    $name = $_GET['name'];
     $getStudent = mysqli_query($db, "SELECT * FROM student WHERE id=$id");
     while($row = mysqli_fetch_array($getStudent)){
         $name = $row['name'];
+        $age = $row['age'];
     }
 }
 
@@ -91,6 +91,7 @@ $pdf->SetFont('dejavusans', '', 14, '', true);
  $pdf->AddPage();
 //  BODY OF THE PAGE
  $pdf->Cell(189, 5, 'Name: '.$name.'', 0, 1, 'C');
+ $pdf->Cell(189, 5, 'Age: '.$age.'', 0, 1, 'C');
 // END
 
 $pdf->Output('example_001.pdf', 'I');
