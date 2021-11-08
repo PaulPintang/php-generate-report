@@ -4,16 +4,13 @@
 require_once('TCPDF/tcpdf.php');
 
 $db = mysqli_connect('localhost', 'root', '', 'report');
-$student = mysqli_query($db,'SELECT * FROM student');
 
 if (isset($_GET['generate'])) {
+    $id = $_GET['id'];
     $name = $_GET['name'];
-    $age = $_GET['age'];
-
-    $getStudent = mysqli_query($db, 'SELECT * FROM student');
+    $getStudent = mysqli_query($db, "SELECT * FROM student WHERE id=$id");
     while($row = mysqli_fetch_array($getStudent)){
         $name = $row['name'];
-        $age = $row['age'];
     }
 }
 
@@ -33,7 +30,7 @@ class PDF extends TCPDF{
     // PAGE FOOTER
     public function Footer(){
     // test some inline CSS
-        $html = '<p style="color:#CC0000;">Note: Invalid without signature</p>';
+        $html = '<p style="color:#CC0000;">Note: Invalid without department head signature</p>';
         $this->writeHTML($html, true, false, true, false, '');
     }
 }
@@ -92,10 +89,8 @@ $pdf->SetFont('dejavusans', '', 14, '', true);
 // Add a page
 // This method has several options, check the source code documentation for more information.
  $pdf->AddPage();
-
 //  BODY OF THE PAGE
-     $html = '<p>Name: '.$name.'</i>';
-     $pdf->writeHTML($html, true, false, true, false, '');
+ $pdf->Cell(189, 5, 'Name: '.$name.'', 0, 1, 'C');
 // END
 
 $pdf->Output('example_001.pdf', 'I');
